@@ -1,5 +1,5 @@
 # Yabai (Window Manager)
-Download [Brew](https://github.com/BosEriko/brew) as your package manager then install [Yabai]([https://scoop.sh/#/apps?q=glazewm](https://github.com/asmvik/yabai)).
+Download [Brew](https://github.com/BosEriko/brew) as your package manager then install [Yabai](https://github.com/asmvik/yabai).
 
 Disable System Integrity Protection:
 Apple Silicon: Shut down → hold Power → Options → Continue
