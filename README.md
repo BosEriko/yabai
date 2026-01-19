@@ -2,7 +2,7 @@
 Download [Brew](https://github.com/BosEriko/brew) as your package manager then install [Yabai](https://github.com/asmvik/yabai).
 
 ## Disable System Integrity Protection (Apple Silicon)
-Shut down → hold Power → Options → Continue
+Shut down → hold Power → Options → Continue → Terminal
 ```sh
 csrutil disable
 sudo nvram boot-args="-arm64e_preview_abi"
