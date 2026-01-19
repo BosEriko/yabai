@@ -29,10 +29,6 @@ ln -sf ~/Documents/Codes/Configuration/yabai/sketchybarrc ~/.config/sketchybar/s
 ```sh
 yabai --install-service
 yabai --start-service
-```
-
-## Enable Yabai Scripting
-```sh
 sudo sh -c "echo \"$(whoami) ALL=(root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai) | cut -d ' ' -f1) $(which yabai) --load-sa\" > /private/etc/sudoers.d/yabai"
 sudo yabai --load-sa
 ```
