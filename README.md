@@ -2,8 +2,7 @@
 Download [Brew](https://github.com/BosEriko/brew) as your package manager then install [Yabai](https://github.com/asmvik/yabai).
 
 ## Disable System Integrity Protection (Apple Silicon)
-Shut down → hold Power → Options → Continue
-Then open Terminal
+Shut down → hold Power → Options → Continue → Then open Terminal
 ```sh
 csrutil disable
 sudo nvram boot-args="-arm64e_preview_abi"
@@ -46,5 +45,4 @@ brew services start sketchybar
 ```
 
 ## Hide Menu Bar
-System Settings → Desktop & Dock → Menu Bar
-Set Automatically hide and show the menu bar to Always
+System Settings → Desktop & Dock → Menu Bar → Set Automatically hide and show the menu bar to Always
