@@ -19,7 +19,7 @@ brew install yabai skhd jq borders sketchybar font-hack-nerd-font
 ```sh
 mkdir -p ~/Documents/Codes/Configuration ~/.config/sketchybar/plugins
 git clone https://github.com/BosEriko/yabai.git ~/Documents/Codes/Configuration/yabai
-cp -r $(brew --prefix)/share/sketchybar/examples/plugins/ ~/.config/sketchybar/plugins/
+cp -R "$(brew --prefix)/share/sketchybar/examples/plugins/." ~/.config/sketchybar/plugins/
 ln -sf ~/Documents/Codes/Configuration/yabai/.yabairc ~/.yabairc
 ln -sf ~/Documents/Codes/Configuration/yabai/.skhdrc ~/.skhdrc
 ln -sf ~/Documents/Codes/Configuration/yabai/sketchybarrc ~/.config/sketchybar/sketchybarrc
