@@ -53,4 +53,4 @@ shift + lcmd - space : yabai -m window --toggle float
 shift + lcmd - q : yabai -m window --close
 
 # Reload Yabai Config
-shift + lcmd - r : yabai --restart-service; sketchybar --reload; skhd --restart-service
+shift + lcmd - r : yabai --restart-service; sketchybar --reload; skhd --restart-service; brew services restart boders
