@@ -12,7 +12,13 @@ reboot
 ## Install Yabai Dependencies
 ```sh
 brew tap FelixKratz/formulae
-brew install yabai skhd jq borders sketchybar font-hack-nerd-font
+brew install yabai skhd jq borders sketchybar
+```
+
+## Install Nerd Font
+```sh
+brew tap homebrew/cask-fonts
+brew install font-hack-nerd-font
 ```
 
 ## Clone the Repository
