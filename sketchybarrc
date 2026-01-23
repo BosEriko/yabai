@@ -47,7 +47,7 @@ sketchybar --default "${default[@]}"
 # https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item
 # to indicate active and available mission control spaces.
 
-SPACE_ICONS=("󰖟" "" "󰅩" "" "" "" "" "" "󰏫" "")
+SPACE_ICONS=("󰖟" "" "" "" "" "" "" "" "󰏫" "")
 for i in "${!SPACE_ICONS[@]}"
 do
   sid="$(($i+1))"
