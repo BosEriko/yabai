@@ -35,7 +35,8 @@ rcmd - 9 : yabai -m window --space 9; yabai -m space --focus 9
 rcmd - 0 : yabai -m window --space 10; yabai -m space --focus 10
 
 # Applications
-shift + lcmd - 3 : open -a "Terminal"; yabai -m space --focus 3
+shift + lcmd - 2 : open -a "Ghostty"; yabai -m space --focus 2
+shift + lcmd - 3 : open -a "Zed"; yabai -m space --focus 3
 
 # Resize
 lcmd - u : yabai -m window --resize left:-20:0
