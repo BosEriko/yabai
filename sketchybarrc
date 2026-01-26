@@ -25,7 +25,7 @@ default=(
 )
 sketchybar --default "${default[@]}"
 
-SPACE_ICONS=("󰖟" "" "" "󰚩" "" "" "" "" "" "")
+SPACE_ICONS=("󰖟" "" "" "" "" "" "" "" "" "")
 for i in "${!SPACE_ICONS[@]}"
 do
   sid="$(($i+1))"
