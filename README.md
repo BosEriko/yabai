@@ -23,9 +23,8 @@ brew install font-hack-nerd-font
 
 ## Clone the Repository
 ```sh
-mkdir -p ~/Documents/Codes/Configuration ~/.config/sketchybar/plugins ~/.config/borders
+mkdir -p ~/Documents/Codes/Configuration ~/.config/borders
 git clone https://github.com/BosEriko/yabai.git ~/Documents/Codes/Configuration/yabai
-cp -R "$(brew --prefix)/share/sketchybar/examples/plugins/." ~/.config/sketchybar/plugins/
 ln -sf ~/Documents/Codes/Configuration/yabai/.yabairc ~/.yabairc
 ln -sf ~/Documents/Codes/Configuration/yabai/.skhdrc ~/.skhdrc
 ln -sf ~/Documents/Codes/Configuration/yabai/sketchybarrc ~/.config/sketchybar/sketchybarrc
