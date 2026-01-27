@@ -44,15 +44,17 @@ yabai -m config right_padding 10
 # Workspaces
 num_displays=$(yabai -m query --displays | jq length)
 if [ "$num_displays" -ge 2 ]; then
-    while [ "$(yabai -m query --spaces --display 1 | jq length)" -lt 5 ]; do
+    while [ "$(yabai -m query --spaces --display 1 | jq length)" -lt 5 ] && [ "$(yabai -m query --spaces | jq length)" -lt 10 ]; do
+        yabai -m display --focus 1
         yabai -m space --create
     done
-    while [ "$(yabai -m query --spaces --display 2 | jq length)" -lt 5 ]; do
+    while [ "$(yabai -m query --spaces --display 2 | jq length)" -lt 5 ] && [ "$(yabai -m query --spaces | jq length)" -lt 10 ]; do
         yabai -m display --focus 2
         yabai -m space --create
     done
 else
     while [ "$(yabai -m query --spaces --display 1 | jq length)" -lt 10 ]; do
+        yabai -m display --focus 1
         yabai -m space --create
     done
 fi
