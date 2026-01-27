@@ -1,43 +1,49 @@
 PLUGIN_DIR="~/Documents/Codes/Configuration/yabai/plugins"
 
+BLUE=0xFF1E6E77
+ORANGE=0xFFCC7B6E
+PINK=0xFFD7448A
+RED=0xFFCE3A5B
+GREEN=0xFF638989
+YELLOW=0xFFFFDF20
+WHITE=0xFFBCBCBC
+
 sketchybar --bar \
   position=top \
   height=30 \
   margin=10 \
   y_offset=10 \
-  corner_radius=8 \
-  blur_radius=30 \
-  padding_left=3 \
-  padding_right=3 \
-  color=0xCC303030
+  padding_left=0 \
+  padding_right=0 \
+  color=0x00000000
 
 default=(
-  padding_left=5
-  padding_right=5
-  icon.font="Hack Nerd Font:Bold:13.0"
-  label.font="Hack Nerd Font:Bold:10.0"
-  icon.color=0xffffffff
-  label.color=0xffffffff
-  icon.padding_left=2
-  icon.padding_right=2
-  label.padding_left=2
-  label.padding_right=2
+    icon.font="Hack Nerd Font:Bold:13.0"
+    label.font="Hack Nerd Font:Bold:10.0"
+    background.color=0xEB1e1e2e
+    blur_radius=2
+    background.corner_radius=15
+    background.height=30
+    icon.padding_left=12
+    icon.padding_right=4
+    label.padding_left=4
+    label.padding_right=12
+    background.padding_left=18
+    background.border_width=2
 )
 sketchybar --default "${default[@]}"
 
 SPACE_ICONS=("󰖟" "" "" "" "" "" "" "" "" "")
+SPACE_LABELS=("Browser" "Terminal" "Editor" "Design" "3D" "Stream" "Vault" "Music" "Notes" "Chat")
 for i in "${!SPACE_ICONS[@]}"
 do
   sid="$(($i+1))"
   space=(
     space="$sid"
     icon="${SPACE_ICONS[i]}"
-    icon.padding_left=5
-    icon.padding_right=5
-    background.color=0x40ffffff
-    background.corner_radius=5
-    background.height=20
-    label.drawing=off
+    label="${SPACE_LABELS[i]}"
+    background.padding_left=0
+    background.padding_right=10
     script="$PLUGIN_DIR/space.sh"
     click_script="yabai -m space --focus $sid"
   )
@@ -45,7 +51,6 @@ do
 done
 
 sketchybar --add item clock right \
-           --set clock update_freq=10 icon=  script="$PLUGIN_DIR/clock.sh" \
-           --subscribe volume volume_change \
+           --set clock update_freq=10 icon= icon.color=$YELLOW background.border_color=$YELLOW script="$PLUGIN_DIR/clock.sh" \
 
 sketchybar --update
