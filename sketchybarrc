@@ -29,7 +29,7 @@ default=(
     label.padding_left=4
     label.padding_right=12
     background.padding_left=18
-    background.border_width=2
+    background.border_width=3
 )
 sketchybar --default "${default[@]}"
 
