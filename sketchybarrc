@@ -49,7 +49,40 @@ do
   sketchybar --add space space."$sid" left --set space."$sid" "${space[@]}"
 done
 
+# Clock
 sketchybar --add item clock right \
-           --set clock update_freq=10 icon= icon.color=$YELLOW background.border_color=$YELLOW script="$PLUGIN_DIR/clock.sh" \
+  --set clock \
+    update_freq=10 \
+    icon= \
+    icon.color=$YELLOW \
+    background.border_color=$YELLOW \
+    script="$PLUGIN_DIR/clock.sh"
+
+# RAM
+sketchybar --add item ram right \
+  --set ram \
+  icon=󰘚 \
+  icon.color=$BLUE \
+  background.border_color=$BLUE \
+  update_freq=5 \
+  script="$PLUGIN_DIR/ram.sh"
+
+# CPU
+sketchybar --add item cpu right \
+  --set cpu \
+  icon=󰍛 \
+  icon.color=$RED \
+  background.border_color=$RED \
+  update_freq=5 \
+  script="$PLUGIN_DIR/cpu.sh"
+
+# STORAGE
+sketchybar --add item storage right \
+  --set storage \
+  icon=󰋊 \
+  icon.color=$GREEN \
+  background.border_color=$GREEN \
+  update_freq=60 \
+  script="$PLUGIN_DIR/storage.sh"
 
 sketchybar --update
