@@ -38,7 +38,7 @@ rcmd - 0 : yabai -m window --space 10; yabai -m space --focus 10
 shift + lcmd - 1 : open -a "Zen"; yabai -m space --focus 1
 shift + lcmd - 2 : open -a "Ghostty"; yabai -m space --focus 2
 shift + lcmd - 3 : open -a "Zed"; yabai -m space --focus 3
-shift + lcmd - 4 : open -a "Blender"; yabai -m space --focus 4
+shift + lcmd - 4 : open -a "Postman"; yabai -m space --focus 4
 shift + lcmd - 5 : open -a "Figma"; yabai -m space --focus 5
 shift + lcmd - 8 : open -a "Spotify"; yabai -m space --focus 8
 shift + lcmd - 9 : open -a "Obsidian"; yabai -m space --focus 9
