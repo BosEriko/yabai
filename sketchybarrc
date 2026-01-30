@@ -62,8 +62,8 @@ sketchybar --add item clock right \
 sketchybar --add item ram right \
   --set ram \
   icon=󰘚 \
-  icon.color=$BLUE \
-  background.border_color=$BLUE \
+  icon.color=$WHITE \
+  background.border_color=$WHITE \
   update_freq=5 \
   script="$PLUGIN_DIR/ram.sh"
 
@@ -71,8 +71,8 @@ sketchybar --add item ram right \
 sketchybar --add item cpu right \
   --set cpu \
   icon=󰍛 \
-  icon.color=$RED \
-  background.border_color=$RED \
+  icon.color=$WHITE \
+  background.border_color=$WHITE \
   update_freq=5 \
   script="$PLUGIN_DIR/cpu.sh"
 
@@ -80,8 +80,8 @@ sketchybar --add item cpu right \
 sketchybar --add item storage right \
   --set storage \
   icon=󰋊 \
-  icon.color=$GREEN \
-  background.border_color=$GREEN \
+  icon.color=$WHITE \
+  background.border_color=$WHITE \
   update_freq=60 \
   script="$PLUGIN_DIR/storage.sh"
 
