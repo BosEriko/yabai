@@ -23,25 +23,25 @@ lcmd - 9 : yabai -m space --focus 9
 lcmd - 0 : yabai -m space --focus 10
 
 # Move workspace
-rcmd - 1 : yabai -m window --space 1; yabai -m space --focus 1
-rcmd - 2 : yabai -m window --space 2; yabai -m space --focus 2
-rcmd - 3 : yabai -m window --space 3; yabai -m space --focus 3
-rcmd - 4 : yabai -m window --space 4; yabai -m space --focus 4
-rcmd - 5 : yabai -m window --space 5; yabai -m space --focus 5
-rcmd - 6 : yabai -m window --space 6; yabai -m space --focus 6
-rcmd - 7 : yabai -m window --space 7; yabai -m space --focus 7
-rcmd - 8 : yabai -m window --space 8; yabai -m space --focus 8
-rcmd - 9 : yabai -m window --space 9; yabai -m space --focus 9
-rcmd - 0 : yabai -m window --space 10; yabai -m space --focus 10
+shift + lcmd - 1 : yabai -m window --space 1; yabai -m space --focus 1
+shift + lcmd - 2 : yabai -m window --space 2; yabai -m space --focus 2
+shift + lcmd - 3 : yabai -m window --space 3; yabai -m space --focus 3
+shift + lcmd - 4 : yabai -m window --space 4; yabai -m space --focus 4
+shift + lcmd - 5 : yabai -m window --space 5; yabai -m space --focus 5
+shift + lcmd - 6 : yabai -m window --space 6; yabai -m space --focus 6
+shift + lcmd - 7 : yabai -m window --space 7; yabai -m space --focus 7
+shift + lcmd - 8 : yabai -m window --space 8; yabai -m space --focus 8
+shift + lcmd - 9 : yabai -m window --space 9; yabai -m space --focus 9
+shift + lcmd - 0 : yabai -m window --space 10; yabai -m space --focus 10
 
 # Applications
-shift + lcmd - 1 : open -a "Zen"; yabai -m space --focus 1
-shift + lcmd - 2 : open -a "Ghostty"; yabai -m space --focus 2
-shift + lcmd - 3 : open -a "Zed"; yabai -m space --focus 3
-shift + lcmd - 4 : open -a "Postman"; yabai -m space --focus 4
-shift + lcmd - 5 : open -a "Obsidian"; yabai -m space --focus 5
-shift + lcmd - 9 : open -a "Spotify"; yabai -m space --focus 9
-shift + lcmd - 0 : open -a "Discord"; yabai -m space --focus 0
+lalt - 1 : open -a "Zen"; yabai -m space --focus 1
+lalt - 2 : open -a "Ghostty"; yabai -m space --focus 2
+lalt - 3 : open -a "Zed"; yabai -m space --focus 3
+lalt - 4 : open -a "Postman"; yabai -m space --focus 4
+lalt - 5 : open -a "Obsidian"; yabai -m space --focus 5
+lalt - 9 : open -a "Spotify"; yabai -m space --focus 9
+lalt - 0 : open -a "Discord"; yabai -m space --focus 0
 
 # Resize
 lcmd - u : yabai -m window --resize left:-20:0
