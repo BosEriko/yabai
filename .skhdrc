@@ -35,13 +35,16 @@ shift + lcmd - 9 : yabai -m window --space 9; yabai -m space --focus 9
 shift + lcmd - 0 : yabai -m window --space 10; yabai -m space --focus 10
 
 # Applications
-lalt - 1 : open -a "Zen"; yabai -m space --focus 1
-lalt - 2 : open -a "Ghostty"; yabai -m space --focus 2
-lalt - 3 : open -a "Zed"; yabai -m space --focus 3
-lalt - 4 : open -a "Postman"; yabai -m space --focus 4
-lalt - 5 : open -a "Obsidian"; yabai -m space --focus 5
-lalt - 9 : open -a "Spotify"; yabai -m space --focus 9
-lalt - 0 : open -a "Discord"; yabai -m space --focus 0
+lalt - 1 : yabai -m space --focus 1; open -a "Zen";
+lalt - 2 : yabai -m space --focus 2; open -a "Ghostty";
+lalt - 3 : yabai -m space --focus 3; open -a "Postman";
+lalt - 4 : yabai -m space --focus 4; open -a "Figma";
+lalt - 5 : yabai -m space --focus 5; open -a "Obsidian";
+lalt - 6 : yabai -m space --focus 6;
+lalt - 7 : yabai -m space --focus 7;
+lalt - 8 : yabai -m space --focus 8; open -a "Finder";
+lalt - 9 : yabai -m space --focus 9; open -a "Spotify";
+lalt - 0 : yabai -m space --focus 10; open -a "Discord";
 
 # Resize
 lcmd - u : yabai -m window --resize left:-20:0
