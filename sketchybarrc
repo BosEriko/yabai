@@ -33,8 +33,8 @@ default=(
 )
 sketchybar --default "${default[@]}"
 
-SPACE_ICONS=("󰖟" "" "" "󱂛" "" "" "󰭹" "" "" "")
-SPACE_LABELS=("Browser" "Terminal" "Editor" "Endpoint" "Notes" "Stream" "Chat" "Vault" "Music" "Message")
+SPACE_ICONS=("󰖟" "" "󱂛" "" "" "" "󰭹" "" "" "")
+SPACE_LABELS=("Browser" "Development" "API" "Figma" "Notes" "Stream" "Chat" "Files" "Music" "Message")
 for i in "${!SPACE_ICONS[@]}"
 do
   sid="$(($i+1))"
