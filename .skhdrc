@@ -44,7 +44,7 @@ lalt - 6 : yabai -m space --focus 6;
 lalt - 7 : yabai -m space --focus 7;
 lalt - 8 : yabai -m space --focus 8; open -a "Finder";
 lalt - 9 : yabai -m space --focus 9; open -a "Spotify";
-lalt - 0 : yabai -m space --focus 10; open -a "Discord";
+lalt - 0 : yabai -m space --focus 10; open -a "Discord"; open -a "Microsoft Teams";
 
 # Resize Windows
 lcmd - u : yabai -m window --resize left:-20:0
