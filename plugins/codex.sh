@@ -1,5 +1,14 @@
 #!/bin/sh
 
+export PATH="/opt/homebrew/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
+
+AUTH="$HOME/.codex/auth.json"
+if ! command -v codex >/dev/null 2>&1 || \
+   ! /usr/bin/jq -e '((.tokens.access_token // "") != "") or ((.OPENAI_API_KEY // "") != "")' "$AUTH" >/dev/null 2>&1; then
+  sketchybar --set "$NAME" drawing=off
+  exit 0
+fi
+
 PCT=$(/usr/bin/python3 - <<'EOF'
 import glob, json, os
 
@@ -30,7 +39,7 @@ EOF
 )
 
 if [ -z "$PCT" ]; then
-  sketchybar --set "$NAME" label="n/a"
+  sketchybar --set "$NAME" drawing=on label="n/a"
 else
-  sketchybar --set "$NAME" label="${PCT}%"
+  sketchybar --set "$NAME" drawing=on label="${PCT}%"
 fi

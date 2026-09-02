@@ -89,6 +89,7 @@ sketchybar --add item storage right \
 # CLAUDE (weekly tokens remaining)
 sketchybar --add item claude right \
   --set claude \
+  drawing=off \
   icon=󰚩 \
   icon.color=$WHITE \
   background.border_color=$WHITE \
@@ -98,6 +99,7 @@ sketchybar --add item claude right \
 # CODEX (weekly tokens remaining)
 sketchybar --add item codex right \
   --set codex \
+  drawing=off \
   icon=󰗏 \
   icon.color=$WHITE \
   background.border_color=$WHITE \
