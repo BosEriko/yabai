@@ -77,15 +77,38 @@ sketchybar --add item storage right \
   update_freq=60 \
   script="$PLUGIN_DIR/storage.sh"
 
+POPUP=(
+  popup.background.color=0xEB1e1e2e
+  popup.background.corner_radius=15
+  popup.background.border_width=3
+  popup.background.border_color=$WHITE
+  popup.background.blur_radius=2
+  popup.height=30
+  popup.y_offset=-4
+)
+
 # CLAUDE (weekly tokens remaining)
 sketchybar --add item claude right \
   --set claude \
   drawing=off \
-  icon=󰙴 \
+  icon=✽ \
   icon.color=$WHITE \
   background.border_color=$WHITE \
+  "${POPUP[@]}" \
   update_freq=300 \
-  script="$PLUGIN_DIR/claude.sh"
+  script="$PLUGIN_DIR/claude.sh" \
+  --subscribe claude mouse.entered mouse.exited mouse.exited.global \
+  --add item claude.details popup.claude \
+  --set claude.details \
+  label="Claude resets —" \
+  icon.drawing=off \
+  icon.padding_left=0 \
+  icon.padding_right=0 \
+  label.padding_left=12 \
+  label.padding_right=12 \
+  background.drawing=off \
+  background.padding_left=0 \
+  background.padding_right=0
 
 # CODEX (weekly tokens remaining)
 sketchybar --add item codex right \
@@ -94,7 +117,20 @@ sketchybar --add item codex right \
   icon=󰝨 \
   icon.color=$WHITE \
   background.border_color=$WHITE \
+  "${POPUP[@]}" \
   update_freq=300 \
-  script="$PLUGIN_DIR/codex.sh"
+  script="$PLUGIN_DIR/codex.sh" \
+  --subscribe codex mouse.entered mouse.exited mouse.exited.global \
+  --add item codex.details popup.codex \
+  --set codex.details \
+  label="Codex resets —" \
+  icon.drawing=off \
+  icon.padding_left=0 \
+  icon.padding_right=0 \
+  label.padding_left=12 \
+  label.padding_right=12 \
+  background.drawing=off \
+  background.padding_left=0 \
+  background.padding_right=0
 
 sketchybar --update
