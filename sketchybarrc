@@ -90,7 +90,7 @@ sketchybar --add item storage right \
 sketchybar --add item claude right \
   --set claude \
   drawing=off \
-  icon=󰚩 \
+  icon=󰙴 \
   icon.color=$WHITE \
   background.border_color=$WHITE \
   update_freq=300 \
@@ -100,7 +100,7 @@ sketchybar --add item claude right \
 sketchybar --add item codex right \
   --set codex \
   drawing=off \
-  icon=󰗏 \
+  icon=󰝨 \
   icon.color=$WHITE \
   background.border_color=$WHITE \
   update_freq=300 \
