@@ -59,15 +59,6 @@ sketchybar --add item clock right \
     background.border_color=$YELLOW \
     script="$PLUGIN_DIR/clock.sh"
 
-# RAM
-sketchybar --add item ram right \
-  --set ram \
-  icon=󰘚 \
-  icon.color=$WHITE \
-  background.border_color=$WHITE \
-  update_freq=5 \
-  script="$PLUGIN_DIR/ram.sh"
-
 # CPU
 sketchybar --add item cpu right \
   --set cpu \
