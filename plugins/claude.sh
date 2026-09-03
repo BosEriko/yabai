@@ -44,15 +44,18 @@ RESET_ISO=$(printf '%s' "$RESP" | /usr/bin/jq -r '.seven_day.resets_at // empty'
 
 if [ -n "$RESET_ISO" ]; then
   EPOCH=$(date -j -u -f "%Y-%m-%dT%H:%M:%S" "$(printf '%s' "$RESET_ISO" | cut -c1-19)" "+%s" 2>/dev/null)
-  [ -n "$EPOCH" ] && RESET_HUMAN=$(date -r "$EPOCH" "+%a %b %d, %H:%M")
+  if [ -n "$EPOCH" ]; then
+    EPOCH=$(( (EPOCH + 30) / 60 * 60 ))
+    RESET_HUMAN=$(date -r "$EPOCH" "+%a %b %d, %H:%M")
+  fi
 fi
 [ -z "$RESET_HUMAN" ] && RESET_HUMAN="—"
 
 if [ -z "$UTIL" ]; then
   sketchybar --set "$NAME" drawing=on label="n/a" \
-    --set "${NAME}.details" label="Claude resets ${RESET_HUMAN}"
+    --set "${NAME}.details" label="Claude usage unavailable"
 else
   REMAIN=$(awk -v u="$UTIL" 'BEGIN {printf "%.0f", 100 - u}')
   sketchybar --set "$NAME" drawing=on label="${REMAIN}%" \
-    --set "${NAME}.details" label="Claude resets ${RESET_HUMAN}"
+    --set "${NAME}.details" label="Claude has ${REMAIN}% tokens remaining before the weekly reset on ${RESET_HUMAN}"
 fi

@@ -55,14 +55,15 @@ PCT=$(printf '%s\n' "$OUT" | sed -n '1p')
 RESET_EPOCH=$(printf '%s\n' "$OUT" | sed -n '2p')
 
 if [ -n "$RESET_EPOCH" ]; then
+  RESET_EPOCH=$(( (RESET_EPOCH + 30) / 60 * 60 ))
   RESET_HUMAN=$(date -r "$RESET_EPOCH" "+%a %b %d, %H:%M" 2>/dev/null)
 fi
 [ -z "$RESET_HUMAN" ] && RESET_HUMAN="—"
 
 if [ -z "$PCT" ]; then
   sketchybar --set "$NAME" drawing=on label="n/a" \
-    --set "${NAME}.details" label="Codex resets ${RESET_HUMAN}"
+    --set "${NAME}.details" label="Codex usage unavailable"
 else
   sketchybar --set "$NAME" drawing=on label="${PCT}%" \
-    --set "${NAME}.details" label="Codex resets ${RESET_HUMAN}"
+    --set "${NAME}.details" label="Codex has ${PCT}% tokens remaining before the weekly reset on ${RESET_HUMAN}"
 fi
