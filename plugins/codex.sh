@@ -43,12 +43,29 @@ for f in files:
     except (FileNotFoundError, OSError):
         pass
 
-if not best:
-    raise SystemExit(0)
+cache = os.path.join(os.environ.get("TMPDIR", "/tmp"), "sketchybar_codex_usage.json")
 
-sec = best[1].get("secondary", {})
-used = sec.get("used_percent")
-resets = sec.get("resets_at")
+used = resets = None
+if best:
+    sec = best[1].get("secondary", {})
+    used = sec.get("used_percent")
+    resets = sec.get("resets_at")
+
+if used is not None and resets is not None:
+    try:
+        with open(cache, "w") as fh:
+            json.dump({"used_percent": used, "resets_at": resets}, fh)
+    except OSError:
+        pass
+elif os.path.exists(cache):
+    try:
+        with open(cache) as fh:
+            c = json.load(fh)
+        used = c.get("used_percent")
+        resets = c.get("resets_at")
+    except (OSError, ValueError):
+        pass
+
 if used is None or resets is None:
     raise SystemExit(0)
 
