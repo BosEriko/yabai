@@ -26,10 +26,18 @@ if [ -z "$TOKEN" ]; then
   exit 0
 fi
 
+CACHE="${TMPDIR:-/tmp}/sketchybar_claude_usage.json"
+
 RESP=$(curl -sf --max-time 5 https://api.anthropic.com/api/oauth/usage \
   -H "Authorization: Bearer $TOKEN" \
   -H "anthropic-beta: oauth-2025-04-20" \
   -H "Content-Type: application/json")
+
+if printf '%s' "$RESP" | /usr/bin/jq -e '.seven_day.utilization != null and .seven_day.resets_at != null' >/dev/null 2>&1; then
+  printf '%s' "$RESP" > "$CACHE"
+elif [ -f "$CACHE" ]; then
+  RESP=$(cat "$CACHE")
+fi
 
 UTIL=$(printf '%s' "$RESP" | /usr/bin/jq -r '.seven_day.utilization // empty' 2>/dev/null)
 RESET_ISO=$(printf '%s' "$RESP" | /usr/bin/jq -r '.seven_day.resets_at // empty' 2>/dev/null)
