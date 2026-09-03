@@ -21,7 +21,8 @@ if ! command -v codex >/dev/null 2>&1 || \
 fi
 
 OUT=$(/usr/bin/python3 - <<'EOF'
-import glob, json, os
+import glob, json, os, time
+from datetime import datetime, timedelta
 
 files = glob.glob(os.path.expanduser("~/.codex/sessions/**/*.jsonl"), recursive=True)
 best = None
@@ -42,28 +43,52 @@ for f in files:
     except (FileNotFoundError, OSError):
         pass
 
-if best:
-    sec = best[1].get("secondary", {})
-    used = sec.get("used_percent")
-    resets = sec.get("resets_at")
-    print(int(round(100 - used)) if used is not None else "")
-    print(resets if resets is not None else "")
+if not best:
+    raise SystemExit(0)
+
+sec = best[1].get("secondary", {})
+used = sec.get("used_percent")
+resets = sec.get("resets_at")
+if used is None or resets is None:
+    raise SystemExit(0)
+
+reset = (int(resets) + 30) // 60 * 60
+now = time.time()
+start = reset - 7 * 86400
+
+
+def wsec(a, b):
+    if b <= a:
+        return 0.0
+    total = 0.0
+    cur = datetime.fromtimestamp(a)
+    end = datetime.fromtimestamp(b)
+    while cur < end:
+        nxt = min(cur.replace(hour=0, minute=0, second=0, microsecond=0)
+                  + timedelta(days=1), end)
+        if cur.weekday() < 5:
+            total += (nxt - cur).total_seconds()
+        cur = nxt
+    return total
+
+
+work_total = wsec(start, reset)
+trem = 0.0 if work_total <= 0 else 100.0 * wsec(now, reset) / work_total
+
+print("%.0f%%" % ((100.0 - used) - trem))
+print(round(100.0 - used))
+print(datetime.fromtimestamp(reset).strftime("%a %b %d, %H:%M"))
 EOF
 )
 
-PCT=$(printf '%s\n' "$OUT" | sed -n '1p')
-RESET_EPOCH=$(printf '%s\n' "$OUT" | sed -n '2p')
+LABEL=$(printf '%s\n' "$OUT" | sed -n '1p')
+REMAIN=$(printf '%s\n' "$OUT" | sed -n '2p')
+RESET_HUMAN=$(printf '%s\n' "$OUT" | sed -n '3p')
 
-if [ -n "$RESET_EPOCH" ]; then
-  RESET_EPOCH=$(( (RESET_EPOCH + 30) / 60 * 60 ))
-  RESET_HUMAN=$(date -r "$RESET_EPOCH" "+%a %b %d, %H:%M" 2>/dev/null)
-fi
-[ -z "$RESET_HUMAN" ] && RESET_HUMAN="—"
-
-if [ -z "$PCT" ]; then
+if [ -z "$LABEL" ]; then
   sketchybar --set "$NAME" drawing=on label="n/a" \
     --set "${NAME}.details" label="Codex usage unavailable"
 else
-  sketchybar --set "$NAME" drawing=on label="${PCT}%" \
-    --set "${NAME}.details" label="Codex has ${PCT}% tokens remaining before the weekly reset on ${RESET_HUMAN}"
+  sketchybar --set "$NAME" drawing=on label="${LABEL}" \
+    --set "${NAME}.details" label="Codex has ${REMAIN}% tokens remaining before the weekly reset on ${RESET_HUMAN}"
 fi

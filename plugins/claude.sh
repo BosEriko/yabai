@@ -56,6 +56,40 @@ if [ -z "$UTIL" ]; then
     --set "${NAME}.details" label="Claude usage unavailable"
 else
   REMAIN=$(awk -v u="$UTIL" 'BEGIN {printf "%.0f", 100 - u}')
-  sketchybar --set "$NAME" drawing=on label="${REMAIN}%" \
+  if [ -n "$EPOCH" ]; then
+    LABEL=$(/usr/bin/python3 - "$EPOCH" "$UTIL" <<'EOF'
+import sys, time
+from datetime import datetime, timedelta
+
+reset = float(sys.argv[1])
+util = float(sys.argv[2])
+now = time.time()
+start = reset - 7 * 86400
+
+
+def wsec(a, b):
+    if b <= a:
+        return 0.0
+    total = 0.0
+    cur = datetime.fromtimestamp(a)
+    end = datetime.fromtimestamp(b)
+    while cur < end:
+        nxt = min(cur.replace(hour=0, minute=0, second=0, microsecond=0)
+                  + timedelta(days=1), end)
+        if cur.weekday() < 5:
+            total += (nxt - cur).total_seconds()
+        cur = nxt
+    return total
+
+
+work_total = wsec(start, reset)
+trem = 0.0 if work_total <= 0 else 100.0 * wsec(now, reset) / work_total
+print("%.0f%%" % ((100.0 - util) - trem))
+EOF
+)
+  else
+    LABEL="${REMAIN}%"
+  fi
+  sketchybar --set "$NAME" drawing=on label="${LABEL}" \
     --set "${NAME}.details" label="Claude has ${REMAIN}% tokens remaining before the weekly reset on ${RESET_HUMAN}"
 fi
