@@ -18,4 +18,4 @@ case "$SENDER" in
 esac
 
 sketchybar --set "$NAME" label="$(date '+%d/%m %H:%M')" \
-  --set "${NAME}.details" label="$(date '+%A, %d %B %Y — %H:%M %Z')"
+  --set "${NAME}.details" label="$(date '+%A, %d %B %Y — %H:%M')"
