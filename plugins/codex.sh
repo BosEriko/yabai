@@ -103,9 +103,15 @@ REMAIN=$(printf '%s\n' "$OUT" | sed -n '2p')
 RESET_HUMAN=$(printf '%s\n' "$OUT" | sed -n '3p')
 
 if [ -z "$LABEL" ]; then
-  sketchybar --set "$NAME" drawing=on label="n/a" \
+  sketchybar --set "$NAME" drawing=on label="n/a" background.border_color=0xFFBCBCBC \
     --set "${NAME}.details" label="Codex usage unavailable"
 else
-  sketchybar --set "$NAME" drawing=on label="${LABEL}" \
+  NUM=${LABEL%\%}
+  if [ "$NUM" -le 0 ] 2>/dev/null; then
+    BORDER=0xFFCE3A5B
+  else
+    BORDER=0xFFBCBCBC
+  fi
+  sketchybar --set "$NAME" drawing=on label="${LABEL}" background.border_color="$BORDER" \
     --set "${NAME}.details" label="Codex has ${REMAIN}% tokens remaining before the weekly reset on ${RESET_HUMAN}"
 fi

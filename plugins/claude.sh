@@ -52,7 +52,7 @@ fi
 [ -z "$RESET_HUMAN" ] && RESET_HUMAN="—"
 
 if [ -z "$UTIL" ]; then
-  sketchybar --set "$NAME" drawing=on label="n/a" \
+  sketchybar --set "$NAME" drawing=on label="n/a" background.border_color=0xFFBCBCBC \
     --set "${NAME}.details" label="Claude usage unavailable"
 else
   REMAIN=$(awk -v u="$UTIL" 'BEGIN {printf "%.0f", 100 - u}')
@@ -90,6 +90,12 @@ EOF
   else
     LABEL="${REMAIN}%"
   fi
-  sketchybar --set "$NAME" drawing=on label="${LABEL}" \
+  NUM=${LABEL%\%}
+  if [ "$NUM" -le 0 ] 2>/dev/null; then
+    BORDER=0xFFCE3A5B
+  else
+    BORDER=0xFFBCBCBC
+  fi
+  sketchybar --set "$NAME" drawing=on label="${LABEL}" background.border_color="$BORDER" \
     --set "${NAME}.details" label="Claude has ${REMAIN}% tokens remaining before the weekly reset on ${RESET_HUMAN}"
 fi
