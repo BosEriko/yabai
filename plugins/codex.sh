@@ -22,7 +22,7 @@ fi
 
 OUT=$(/usr/bin/python3 - <<'EOF'
 import glob, json, os, time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 files = glob.glob(os.path.expanduser("~/.codex/sessions/**/*.jsonl"), recursive=True)
 best = None
@@ -92,15 +92,49 @@ def wsec(a, b):
 work_total = wsec(start, reset)
 trem = 0.0 if work_total <= 0 else 100.0 * wsec(now, reset) / work_total
 
+if best:
+    try:
+        bt = datetime.strptime(best[0][:19], "%Y-%m-%dT%H:%M:%S")
+        age = int(now - bt.replace(tzinfo=timezone.utc).timestamp())
+    except (ValueError, TypeError):
+        age = 10 ** 9
+else:
+    age = 10 ** 9
+
 print("%.0f%%" % ((100.0 - used) - trem))
 print(round(100.0 - used))
 print(datetime.fromtimestamp(reset).strftime("%a %b %d, %H:%M"))
+print(age)
 EOF
 )
 
 LABEL=$(printf '%s\n' "$OUT" | sed -n '1p')
 REMAIN=$(printf '%s\n' "$OUT" | sed -n '2p')
 RESET_HUMAN=$(printf '%s\n' "$OUT" | sed -n '3p')
+AGE=$(printf '%s\n' "$OUT" | sed -n '4p')
+[ -z "$AGE" ] && AGE=999999999
+
+STALE=4320
+LOCK="${TMPDIR:-/tmp}/sketchybar_codex_refresh"
+SIDFILE="${TMPDIR:-/tmp}/sketchybar_codex_refresh_session"
+
+if [ "$AGE" -gt "$STALE" ] 2>/dev/null; then
+  if [ ! -f "$LOCK" ] || [ "$(( $(date +%s) - $(stat -f %m "$LOCK" 2>/dev/null || echo 0) ))" -gt "$STALE" ]; then
+    : > "$LOCK"
+    (
+      SID=$(cat "$SIDFILE" 2>/dev/null)
+      if [ -n "$SID" ] && codex exec resume --skip-git-repo-check "$SID" "reply with: ok" >/dev/null 2>&1; then
+        :
+      elif codex exec --skip-git-repo-check -s read-only "reply with: ok" >/dev/null 2>&1; then
+        NEWEST=$(find "$HOME/.codex/sessions" -name '*.jsonl' -type f -newer "$LOCK" 2>/dev/null | sed 1q)
+        if [ -n "$NEWEST" ]; then
+          basename "$NEWEST" .jsonl \
+            | grep -oE '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$' > "$SIDFILE"
+        fi
+      fi
+    ) &
+  fi
+fi
 
 if [ -z "$LABEL" ]; then
   sketchybar --set "$NAME" drawing=on label="n/a" background.border_color=0xFFBCBCBC \
