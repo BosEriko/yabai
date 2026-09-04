@@ -43,7 +43,12 @@ for f in files:
     except (FileNotFoundError, OSError):
         pass
 
-cache = os.path.join(os.environ.get("TMPDIR", "/tmp"), "sketchybar_codex_usage.json")
+cache_dir = os.path.expanduser("~/.cache")
+try:
+    os.makedirs(cache_dir, exist_ok=True)
+except OSError:
+    pass
+cache = os.path.join(cache_dir, "sketchybar_codex_usage.json")
 
 used = resets = None
 if best:
@@ -116,7 +121,8 @@ AGE=$(printf '%s\n' "$OUT" | sed -n '4p')
 
 STALE=4320
 LOCK="${TMPDIR:-/tmp}/sketchybar_codex_refresh"
-SIDFILE="${TMPDIR:-/tmp}/sketchybar_codex_refresh_session"
+SIDFILE="$HOME/.cache/sketchybar_codex_refresh_session"
+mkdir -p "$HOME/.cache"
 
 if [ "$AGE" -gt "$STALE" ] 2>/dev/null; then
   if [ ! -f "$LOCK" ] || [ "$(( $(date +%s) - $(stat -f %m "$LOCK" 2>/dev/null || echo 0) ))" -gt "$STALE" ]; then

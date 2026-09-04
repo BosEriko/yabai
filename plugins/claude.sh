@@ -26,7 +26,8 @@ if [ -z "$TOKEN" ]; then
   exit 0
 fi
 
-CACHE="${TMPDIR:-/tmp}/sketchybar_claude_usage.json"
+CACHE="$HOME/.cache/sketchybar_claude_usage.json"
+mkdir -p "$HOME/.cache"
 
 RESP=$(curl -sf --max-time 5 https://api.anthropic.com/api/oauth/usage \
   -H "Authorization: Bearer $TOKEN" \
