@@ -16,19 +16,19 @@ reboot
 
 ## Install Yabai Dependencies
 ```sh
-brew tap FelixKratz/formulae
-brew install yabai skhd jq borders sketchybar
+brew install asmvik/formulae/yabai
+brew install asmvik/formulae/skhd
+brew install jq borders sketchybar
 ```
 
 ## Install Nerd Font
 ```sh
-brew tap homebrew/cask-fonts
-brew install font-hack-nerd-font
+brew install --cask font-hack-nerd-font
 ```
 
 ## Clone the Repository
 ```sh
-mkdir -p ~/Documents/Codes/Configuration ~/.config/borders
+mkdir -p ~/Documents/Codes/Configuration ~/.config/borders ~/.config/sketchybar
 git clone https://github.com/BosEriko/yabai.git ~/Documents/Codes/Configuration/yabai
 ln -sf ~/Documents/Codes/Configuration/yabai/.yabairc ~/.yabairc
 ln -sf ~/Documents/Codes/Configuration/yabai/.skhdrc ~/.skhdrc
@@ -61,4 +61,16 @@ brew services start borders
 ```
 
 ## Hide Menu Bar
-System Settings → Desktop & Dock → Menu Bar → Set Automatically hide and show the menu bar to Always
+System Settings → Menu Bar → Set Automatically hide and show the menu bar to "Always"
+
+## Hide Dock
+System Settings → Desktop & Dock → Toggle Automatically hide and show the Dock to true
+
+## Remove Click Wallpaper Feature
+System Settings → Desktop & Dock → Set Click wallpaper to show desktop to "Only in Stage Manager"
+
+## Reboot
+Restart so the scripting addition loads and every service starts cleanly against a fresh session.
+```sh
+reboot
+```
