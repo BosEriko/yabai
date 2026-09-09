@@ -5,6 +5,11 @@ Download [Brew](https://github.com/BosEriko/brew) as your package manager then i
 Shut down → hold Power → Options → Continue → Then open Terminal
 ```sh
 csrutil disable
+```
+
+## Enable arm64e Preview ABI
+Reboot into macOS, then run these from a normal Terminal
+```sh
 sudo nvram boot-args="-arm64e_preview_abi"
 reboot
 ```
