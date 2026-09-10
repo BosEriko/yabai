@@ -86,21 +86,22 @@ sketchybar --add item clock right \
     background.padding_right=0
 
 # CPU / BATTERY
+sketchybar --add item cpu right \
+  --set cpu \
+  icon=󰍛 \
+  icon.color=$WHITE \
+  background.border_color=$WHITE \
+  update_freq=5 \
+  script="$PLUGIN_DIR/cpu.sh"
+
 if pmset -g batt 2>/dev/null | grep -q "InternalBattery"; then
   sketchybar --add item battery right \
     --set battery \
+    drawing=off \
     icon.color=$WHITE \
     background.border_color=$WHITE \
-    update_freq=120 \
+    update_freq=10 \
     script="$PLUGIN_DIR/battery.sh"
-else
-  sketchybar --add item cpu right \
-    --set cpu \
-    icon=󰍛 \
-    icon.color=$WHITE \
-    background.border_color=$WHITE \
-    update_freq=5 \
-    script="$PLUGIN_DIR/cpu.sh"
 fi
 
 # STORAGE

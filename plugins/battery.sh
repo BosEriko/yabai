@@ -1,9 +1,10 @@
 #!/bin/sh
 
-PERCENTAGE="$(pmset -g batt | grep -Eo "[0-9]+%" | cut -d% -f1)"
-CHARGING="$(pmset -g batt | grep 'AC Power')"
+BATT="$(pmset -g batt)"
+PERCENTAGE="$(printf '%s\n' "$BATT" | grep -Eo "[0-9]+%" | head -1 | cut -d% -f1)"
 
-if [ -z "$PERCENTAGE" ]; then
+if [ -z "$PERCENTAGE" ] || ! printf '%s\n' "$BATT" | grep -q "discharging"; then
+  sketchybar --set "$NAME" drawing=off --set cpu drawing=on
   exit 0
 fi
 
@@ -19,8 +20,4 @@ case "${PERCENTAGE}" in
   *) ICON=""
 esac
 
-if [ -n "$CHARGING" ]; then
-  ICON=""
-fi
-
-sketchybar --set "$NAME" icon="$ICON" label="${PERCENTAGE}%"
+sketchybar --set "$NAME" drawing=on icon="$ICON" label="${PERCENTAGE}%" --set cpu drawing=off
