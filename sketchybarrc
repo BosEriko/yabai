@@ -35,9 +35,15 @@ sketchybar --default "${default[@]}"
 
 SPACE_ICONS=("󰖟" "" "󱂛" "" "" "" "󰭹" "" "" "")
 SPACE_LABELS=("Browser" "Development" "API" "Figma" "Notes" "Stream" "Chat" "Files" "Music" "Message")
+SPACE_DISPLAYS=()
+while IFS= read -r d; do
+  SPACE_DISPLAYS+=("$d")
+done <<< "$(yabai -m query --spaces 2>/dev/null | /usr/bin/jq -r '.[].display')"
+
 for i in "${!SPACE_ICONS[@]}"
 do
   sid="$(($i+1))"
+  display="${SPACE_DISPLAYS[i]}"
   space=(
     space="$sid"
     icon="${SPACE_ICONS[i]}"
@@ -69,6 +75,7 @@ do
     script="$PLUGIN_DIR/space_windows.sh"
     click_script="yabai -m space --focus $sid"
   )
+  [ -n "$display" ] && count+=(display="$display")
   sketchybar --add item space."$sid".count left --set space."$sid".count "${count[@]}"
 done
 
