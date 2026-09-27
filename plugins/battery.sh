@@ -2,6 +2,7 @@
 
 WHITE=0xFFBCBCBC
 GREEN=0xFF34A853
+RED=0xFFCE3A5B
 
 BATT="$(pmset -g batt)"
 PERCENTAGE="$(printf '%s\n' "$BATT" | grep -Eo "[0-9]+%" | head -1 | cut -d% -f1)"
@@ -30,4 +31,10 @@ case "${PERCENTAGE}" in
   *) ICON=""
 esac
 
-sketchybar --set "$NAME" drawing=on icon="$ICON" label="${PERCENTAGE}%" --set cpu drawing=off
+if [ "$PERCENTAGE" -lt 15 ]; then
+  BORDER=$RED
+else
+  BORDER=$WHITE
+fi
+
+sketchybar --set "$NAME" drawing=on icon="$ICON" label="${PERCENTAGE}%" background.border_color="$BORDER" --set cpu drawing=off
