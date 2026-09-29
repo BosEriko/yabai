@@ -2,6 +2,6 @@
   "name": "yabai-config",
   "private": true,
   "scripts": {
-    "wallpaper": "sh plugins/add-wallpaper.sh"
+    "wallpaper": "sh scripts/add-wallpaper.sh"
   }
 }
