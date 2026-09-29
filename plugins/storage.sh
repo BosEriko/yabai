@@ -11,7 +11,7 @@ case "$SENDER" in
     ;;
 esac
 
-read -r SIZE USED AVAIL CAPACITY <<< "$(df -H / | awk 'NR==2 {print $2, $3, $4, $5}')"
+read -r SIZE USED AVAIL CAPACITY <<< "$(df -H /System/Volumes/Data | awk 'NR==2 {print $2, $3, $4, $5}')"
 
 REMAIN=${CAPACITY%\%}
 REMAIN=$((100 - REMAIN))
