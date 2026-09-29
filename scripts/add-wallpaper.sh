@@ -13,6 +13,8 @@ WALLPAPER_DIR="$REPO_DIR/wallpaper"
 
 mkdir -p "$WALLPAPER_DIR"
 
+"$SCRIPT_DIR/renumber-wallpapers.sh"
+
 last=0
 for f in "$WALLPAPER_DIR"/*; do
   [ -f "$f" ] || continue
@@ -67,7 +69,7 @@ fi
 final_size=$(stat -f%z "$dest")
 
 cd "$REPO_DIR"
-git add "$dest"
+git add wallpaper
 git commit -m "✨ Add wallpaper ${next_padded}"
 git push origin main
 
