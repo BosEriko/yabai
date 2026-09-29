@@ -33,8 +33,8 @@ default=(
 )
 sketchybar --default "${default[@]}"
 
-SPACE_ICONS=("󰖟" "" "󱂛" "" "" "" "󰭹" "" "" "")
-SPACE_LABELS=("Browser" "Development" "API" "Figma" "Notes" "Stream" "Chat" "Files" "Music" "Message")
+SPACE_ICONS=("󰖟" "" "󰚩" "" "" "" "󰭹" "" "" "")
+SPACE_LABELS=("Browser" "Development" "Agent" "Figma" "Notes" "Stream" "Chat" "Files" "Music" "Message")
 for i in "${!SPACE_ICONS[@]}"
 do
   sid="$(($i+1))"
@@ -82,6 +82,48 @@ POPUP=(
   popup.y_offset=5
   popup.align=right
 )
+
+sketchybar --add item selector center \
+  --set selector \
+    drawing=off \
+    width=0 \
+    padding_left=0 \
+    padding_right=0 \
+    icon.drawing=off \
+    label.drawing=off \
+    background.drawing=off \
+    popup.background.color=0xEB1e1e2e \
+    popup.background.corner_radius=15 \
+    popup.background.border_width=3 \
+    popup.background.border_color=$YELLOW \
+    popup.background.blur_radius=15 \
+    popup.height=40 \
+    popup.y_offset=5 \
+    popup.align=center
+
+for i in {1..10}
+do
+  sketchybar --add item selector."$i" popup.selector \
+    --set selector."$i" \
+      drawing=off \
+      width=240 \
+      icon.drawing=off \
+      label="" \
+      label.drawing=on \
+      icon.color=$YELLOW \
+      icon.width=24 \
+      label.font="Hack Nerd Font:Bold:11.0" \
+      label.color=$WHITE \
+      label.padding_left=12 \
+      label.padding_right=12 \
+      background.padding_left=3 \
+      background.padding_right=0 \
+      background.border_width=0 \
+      background.drawing=off \
+      background.height=40 \
+      background.corner_radius=0 \
+      click_script="$PLUGIN_DIR/selector.sh choose $i"
+done
 
 # Clock
 sketchybar --add item clock right \
