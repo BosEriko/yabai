@@ -40,6 +40,29 @@ if ! sips -s format png "$tmp_file" --out "$dest" >/dev/null 2>&1; then
   exit 1
 fi
 
+W=$(sips -g pixelWidth "$dest" | awk '/pixelWidth/{print $2}')
+H=$(sips -g pixelHeight "$dest" | awk '/pixelHeight/{print $2}')
+pair=$(awk -v w="$W" -v h="$H" 'BEGIN {
+  scale = 1920/w
+  if (1080/h > scale) scale = 1080/h
+  if (scale > 1) scale = 1
+  nw = int(w * scale); if (nw < 1920 && w >= 1920) nw = 1920
+  nh = int(h * scale); if (nh < 1080 && h >= 1080) nh = 1080
+  print nw, nh
+}')
+new_w=${pair%% *}
+new_h=${pair##* }
+if [ "$new_w" -lt "$W" ] || [ "$new_h" -lt "$H" ]; then
+  sips -z "$new_h" "$new_w" "$dest" >/dev/null 2>&1
+fi
+
+if ! command -v optipng >/dev/null 2>&1; then
+  brew install optipng >/dev/null 2>&1 || true
+fi
+if command -v optipng >/dev/null 2>&1; then
+  optipng -quiet -o4 "$dest" >/dev/null 2>&1 || true
+fi
+
 cd "$REPO_DIR"
 git add "$dest"
 git commit -m "✨ Add wallpaper ${next_padded}"
