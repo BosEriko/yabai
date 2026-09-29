@@ -72,6 +72,12 @@ System Settings → Desktop & Dock → Set Click wallpaper to show desktop to "O
 ## Keep Spaces in Order
 System Settings → Desktop & Dock → Mission Control → Toggle off "Automatically rearrange Spaces based on most recent use"
 
+## Add a Wallpaper
+Downloads an image from a URL, normalizes it to PNG in `wallpaper/`, then commits and pushes.
+```sh
+pnpm wallpaper https://example.com/image.jpg
+```
+
 ## Reboot
 Restart so the scripting addition loads and every service starts cleanly against a fresh session.
 ```sh
