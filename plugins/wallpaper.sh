@@ -31,12 +31,18 @@ case "$MODE" in
   prev)
     index=$(( (index - 1 + count) % count ))
     ;;
-  current) ;;
+  next)
+    index=$(( (index + 1) % count ))
+    ;;
+  sync) ;;
   *)
     index=$(( (index + 1) % count ))
     ;;
 esac
 
 eval "file=\${$((index + 1))}"
-desktoppr 0 "$file"
+
+current=$(desktoppr 2>/dev/null | sed -n '1p')
+[ "$current" = "$file" ] || desktoppr 0 "$file"
+
 printf '%s\n' "$index" > "$STATE_FILE"
