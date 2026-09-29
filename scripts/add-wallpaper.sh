@@ -40,6 +40,7 @@ if ! sips -s format png "$tmp_file" --out "$dest" >/dev/null 2>&1; then
   exit 1
 fi
 
+orig_size=$(stat -f%z "$dest")
 W=$(sips -g pixelWidth "$dest" | awk '/pixelWidth/{print $2}')
 H=$(sips -g pixelHeight "$dest" | awk '/pixelHeight/{print $2}')
 pair=$(awk -v w="$W" -v h="$H" 'BEGIN {
@@ -63,9 +64,15 @@ if command -v optipng >/dev/null 2>&1; then
   optipng -quiet -o4 "$dest" >/dev/null 2>&1 || true
 fi
 
+final_size=$(stat -f%z "$dest")
+
 cd "$REPO_DIR"
 git add "$dest"
 git commit -m "✨ Add wallpaper ${next_padded}"
 git push origin main
 
 echo "Added wallpaper/${next_padded}.png and pushed."
+awk -v w="$W" -v h="$H" -v nw="$new_w" -v nh="$new_h" -v os="$orig_size" -v fs="$final_size" 'BEGIN {
+  printf "Size: %dx%d -> %dx%d\n", w, h, nw, nh
+  printf "File: %.2fMB -> %.2fMB\n", os / 1048576, fs / 1048576
+}'
