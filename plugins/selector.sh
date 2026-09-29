@@ -45,7 +45,7 @@ close() {
 case "$1" in
   open)
     [ -r "$2" ] || exit 1
-    yabai -m space --focus "$3" || exit 1
+    yabai -m space --focus "$3" >/dev/null 2>&1
     "$SCRIPT_DIR/selector.sh" show "$2" || exit 1
     skhd -k f20
     ;;
