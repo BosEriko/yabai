@@ -1,6 +1,7 @@
 #!/bin/sh
 
 STATE_DIR="${TMPDIR:-/tmp}/sketchybar-selector-${USER}"
+CACHE_DIR="$HOME/.cache/sketchybar-selector-${USER}"
 CONFIG_FILE="$STATE_DIR/config"
 INDEX_FILE="$STATE_DIR/index"
 COUNT_FILE="$STATE_DIR/count"
@@ -33,7 +34,7 @@ render() {
     i=$((i + 1))
   done
   highlight="$STATE_DIR/highlight-$count-$selected.png"
-  "$STATE_DIR/selector-mouse" --highlight 240 40 12 "$((count + 1))" "$selected" "$highlight" || return 1
+  "$CACHE_DIR/selector-mouse" --highlight 240 40 12 "$((count + 1))" "$selected" "$highlight" || return 1
   sketchybar "$@" --set selector popup.background.image="$highlight"
 }
 
@@ -57,9 +58,9 @@ case "$1" in
     [ "$count" -le "$MAX_ITEMS" ] || exit 1
     display=$(yabai -m query --displays --display) || exit 1
     display_index=$(printf '%s\n' "$display" | jq -er '.index') || exit 1
-    mkdir -p "$STATE_DIR"
-    if [ ! -x "$STATE_DIR/selector-mouse" ] || [ "$SCRIPT_DIR/../scripts/selector-mouse.swift" -nt "$STATE_DIR/selector-mouse" ]; then
-      swiftc -module-cache-path "$STATE_DIR/swift-cache" "$SCRIPT_DIR/../scripts/selector-mouse.swift" -o "$STATE_DIR/selector-mouse" || { skhd -k escape; exit 1; }
+    mkdir -p "$STATE_DIR" "$CACHE_DIR"
+    if [ ! -x "$CACHE_DIR/selector-mouse" ] || [ "$SCRIPT_DIR/../scripts/selector-mouse.swift" -nt "$CACHE_DIR/selector-mouse" ]; then
+      swiftc -module-cache-path "$CACHE_DIR/swift-cache" "$SCRIPT_DIR/../scripts/selector-mouse.swift" -o "$CACHE_DIR/selector-mouse" || { skhd -k escape; exit 1; }
     fi
     printf '%s\n' "$config" > "$CONFIG_FILE"
     printf '1\n' > "$INDEX_FILE"
@@ -75,7 +76,7 @@ case "$1" in
       ') || exit 1
     sketchybar --set selector popup.y_offset="$offset" popup.drawing=on
     printf '%s\n' "$$" > "$SESSION_FILE"
-    "$STATE_DIR/selector-mouse" "$SESSION_FILE" "$$" "$SCRIPT_DIR/selector.sh" >/dev/null 2>&1 &
+    "$CACHE_DIR/selector-mouse" "$SESSION_FILE" "$$" "$SCRIPT_DIR/selector.sh" >/dev/null 2>&1 &
     ;;
   up|down)
     [ -r "$INDEX_FILE" ] && [ -r "$COUNT_FILE" ] || exit 1
