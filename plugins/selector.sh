@@ -58,8 +58,8 @@ case "$1" in
     display=$(yabai -m query --displays --display) || exit 1
     display_index=$(printf '%s\n' "$display" | jq -er '.index') || exit 1
     mkdir -p "$STATE_DIR"
-    if [ ! -x "$STATE_DIR/selector-mouse" ] || [ "$SCRIPT_DIR/selector-mouse.swift" -nt "$STATE_DIR/selector-mouse" ]; then
-      swiftc -module-cache-path "$STATE_DIR/swift-cache" "$SCRIPT_DIR/selector-mouse.swift" -o "$STATE_DIR/selector-mouse" || { skhd -k escape; exit 1; }
+    if [ ! -x "$STATE_DIR/selector-mouse" ] || [ "$SCRIPT_DIR/../scripts/selector-mouse.swift" -nt "$STATE_DIR/selector-mouse" ]; then
+      swiftc -module-cache-path "$STATE_DIR/swift-cache" "$SCRIPT_DIR/../scripts/selector-mouse.swift" -o "$STATE_DIR/selector-mouse" || { skhd -k escape; exit 1; }
     fi
     printf '%s\n' "$config" > "$CONFIG_FILE"
     printf '1\n' > "$INDEX_FILE"

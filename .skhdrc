@@ -82,5 +82,9 @@ lcmd - space : yabai -m window --toggle float
 shift + lcmd - space : yabai -m window --toggle float
 shift + lcmd - q : killall "$(yabai -m query --windows --window | jq -r .app)"
 
+# Cycle Wallpaper
+lalt - j : ~/Documents/Codes/Configuration/yabai/plugins/wallpaper.sh next
+lalt - k : ~/Documents/Codes/Configuration/yabai/plugins/wallpaper.sh prev
+
 # Reload Config
 shift + lcmd - r : yabai --restart-service; sketchybar --reload; skhd --restart-service; brew services restart boders
