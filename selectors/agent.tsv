@@ -1,2 +1,2 @@
-ChatGPT	~/Documents/Codes/Configuration/yabai/plugins/app.sh open chatgpt 3
-Claude	~/Documents/Codes/Configuration/yabai/plugins/app.sh open claude 3
+ChatGPT	yabai -m space --focus 3; open -a "ChatGPT"
+Claude	yabai -m space --focus 3; open -a "Claude"
