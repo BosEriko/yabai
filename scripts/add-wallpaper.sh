@@ -43,6 +43,6 @@ fi
 cd "$REPO_DIR"
 git add "$dest"
 git commit -m "✨ Add wallpaper ${next_padded}"
-git push
+git push origin main
 
 echo "Added wallpaper/${next_padded}.png and pushed."
