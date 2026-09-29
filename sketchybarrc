@@ -33,7 +33,7 @@ default=(
 )
 sketchybar --default "${default[@]}"
 
-SPACE_ICONS=("󰖟" "" "󰚩" "" "" "" "󰭹" "" "" "")
+SPACE_ICONS=("󰖟" "" "󰚩" "" "" "" "󰭹" "" "" "")
 SPACE_LABELS=("Browser" "Development" "Agent" "Figma" "Notes" "Stream" "Chat" "Files" "Music" "Message")
 for i in "${!SPACE_ICONS[@]}"
 do
