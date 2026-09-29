@@ -69,6 +69,9 @@ System Settings → Desktop & Dock → Toggle Automatically hide and show the Do
 ## Remove Click Wallpaper Feature
 System Settings → Desktop & Dock → Set Click wallpaper to show desktop to "Only in Stage Manager"
 
+## Keep Spaces in Order
+System Settings → Desktop & Dock → Mission Control → Toggle off "Automatically rearrange Spaces based on most recent use"
+
 ## Reboot
 Restart so the scripting addition loads and every service starts cleanly against a fresh session.
 ```sh
