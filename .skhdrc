@@ -39,15 +39,15 @@ shift + lcmd - 0 : yabai -m window --space 10; yabai -m space --focus 10
 :: selector @
 f20 ; selector
 
-lalt - 1 : yabai -m space --focus 1; open -a "Brave Browser";
-lalt - 2 : yabai -m space --focus 2; open -a "Ghostty";
+lalt - 1 : ~/Documents/Codes/Configuration/yabai/plugins/app.sh open brave-browser 1
+lalt - 2 : ~/Documents/Codes/Configuration/yabai/plugins/app.sh open ghostty 2
 lalt - 3 : ~/Documents/Codes/Configuration/yabai/plugins/selector.sh open ~/Documents/Codes/Configuration/yabai/selectors/agent.tsv 3
-lalt - 4 : yabai -m space --focus 4; open -a "Figma";
-lalt - 5 : yabai -m space --focus 5; open -a "Obsidian";
+lalt - 4 : ~/Documents/Codes/Configuration/yabai/plugins/app.sh open figma 4
+lalt - 5 : ~/Documents/Codes/Configuration/yabai/plugins/app.sh open obsidian 5
 lalt - 6 : yabai -m space --focus 6;
 lalt - 7 : yabai -m space --focus 7;
-lalt - 8 : yabai -m space --focus 8; open -a "Finder";
-lalt - 9 : yabai -m space --focus 9; open -a "Spotify";
+lalt - 8 : ~/Documents/Codes/Configuration/yabai/plugins/app.sh open finder 8
+lalt - 9 : ~/Documents/Codes/Configuration/yabai/plugins/app.sh open spotify 9
 lalt - 0 : ~/Documents/Codes/Configuration/yabai/plugins/selector.sh open ~/Documents/Codes/Configuration/yabai/selectors/messages.tsv 10
 
 selector < j : ~/Documents/Codes/Configuration/yabai/plugins/selector.sh down

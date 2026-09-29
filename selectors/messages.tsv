@@ -1,2 +1,2 @@
-Discord	yabai -m space --focus 10; open -a "Discord"
-Microsoft Teams	yabai -m space --focus 10; open -a "Microsoft Teams"
+Discord	~/Documents/Codes/Configuration/yabai/plugins/app.sh open discord 10
+Microsoft Teams	~/Documents/Codes/Configuration/yabai/plugins/app.sh open microsoft-teams 10
