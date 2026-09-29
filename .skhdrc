@@ -34,11 +34,12 @@ shift + lcmd - 8 : yabai -m window --space 8; yabai -m space --focus 8
 shift + lcmd - 9 : yabai -m window --space 9; yabai -m space --focus 9
 shift + lcmd - 0 : yabai -m window --space 10; yabai -m space --focus 10
 
-# Open Applications
+# Selector Mode
 :: default : ~/Documents/Codes/Configuration/yabai/plugins/selector.sh close
 :: selector @
 f20 ; selector
 
+# Open Applications
 lalt - 1 : yabai -m space --focus 1; open -a "Brave Browser";
 lalt - 2 : yabai -m space --focus 2; open -a "Ghostty";
 lalt - 3 : ~/Documents/Codes/Configuration/yabai/plugins/selector.sh open ~/Documents/Codes/Configuration/yabai/selectors/agent.tsv 3
@@ -50,6 +51,7 @@ lalt - 8 : yabai -m space --focus 8; open -a "Finder";
 lalt - 9 : yabai -m space --focus 9; open -a "Spotify";
 lalt - 0 : ~/Documents/Codes/Configuration/yabai/plugins/selector.sh open ~/Documents/Codes/Configuration/yabai/selectors/messages.tsv 10
 
+# Selector Navigation
 selector < j : ~/Documents/Codes/Configuration/yabai/plugins/selector.sh down
 selector < k : ~/Documents/Codes/Configuration/yabai/plugins/selector.sh up
 selector < 1 : ~/Documents/Codes/Configuration/yabai/plugins/selector.sh number 1
