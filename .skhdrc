@@ -80,7 +80,7 @@ lcmd - 0x1B : yabai -m window --insert south
 # Window Controls
 lcmd - space : yabai -m window --toggle float
 shift + lcmd - space : yabai -m window --toggle float
-shift + lcmd - q : yabai -m window --close
+shift + lcmd - q : killall "$(yabai -m query --windows --window | jq -r .app)"
 
 # Reload Config
 shift + lcmd - r : yabai --restart-service; sketchybar --reload; skhd --restart-service; brew services restart boders
