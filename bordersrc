@@ -1,5 +1,10 @@
 #!/bin/bash
 
+BLACKLIST=(
+	Simulator
+)
+
+IFS=,
 options=(
 	style=round
 	width=4.0
@@ -7,6 +12,8 @@ options=(
 	active_color=0xffffdf20
 	inactive_color=0xffbcbcbc
 	order=above
+	blacklist="${BLACKLIST[*]}"
 )
+unset IFS
 
 borders "${options[@]}"
