@@ -101,7 +101,7 @@ sketchybar --add item selector center \
     popup.y_offset=5 \
     popup.align=center
 
-for i in {1..10}
+for i in {1..11}
 do
   sketchybar --add item selector."$i" popup.selector \
     --set selector."$i" \

@@ -18,9 +18,12 @@ render() {
   i=1
   set --
 
-  while [ "$i" -le "$((MAX_ITEMS + 1))" ]; do
-    if [ "$i" -le "$((count + 1))" ]; then
-      if [ "$i" -eq "$((count + 1))" ]; then
+  while [ "$i" -le "$((MAX_ITEMS + 2))" ]; do
+    if [ "$i" -le "$((count + 2))" ]; then
+      if [ "$i" -eq "$((count + 2))" ]; then
+        label="Esc"
+        key=e
+      elif [ "$i" -eq "$((count + 1))" ]; then
         label="Open all"
         key=a
       else
@@ -34,7 +37,7 @@ render() {
     i=$((i + 1))
   done
   highlight="$STATE_DIR/highlight-$count-$selected.png"
-  "$CACHE_DIR/selector-mouse" --highlight 240 40 12 "$((count + 1))" "$selected" "$highlight" || return 1
+  "$CACHE_DIR/selector-mouse" --highlight 240 40 12 "$((count + 2))" "$selected" "$highlight" || return 1
   sketchybar "$@" --set selector popup.background.image="$highlight"
 }
 
@@ -69,7 +72,7 @@ case "$1" in
     sketchybar --set selector display="$display_index" drawing=on popup.drawing=off
     selector=$(sketchybar --query selector) || exit 1
     offset=$(printf '%s\n' "$selector" | jq -er \
-      --argjson display "$display" --argjson count "$((count + 1))" '
+      --argjson display "$display" --argjson count "$((count + 2))" '
         .bounding_rects["display-\($display.index)"] as $anchor |
         ($display.frame.y + ($display.frame.h - ($count * .popup.height + 2 * .popup.background.border_width)) / 2
          - $anchor.origin[1] - $anchor.size[1]) | floor
@@ -82,7 +85,7 @@ case "$1" in
     [ -r "$INDEX_FILE" ] && [ -r "$COUNT_FILE" ] || exit 1
     index=$(cat "$INDEX_FILE")
     count=$(cat "$COUNT_FILE")
-    count=$((count + 1))
+    count=$((count + 2))
     if [ "$1" = "up" ]; then
       index=$((index - 1))
       [ "$index" -ge 1 ] || index=$count
@@ -107,12 +110,17 @@ case "$1" in
     elif [ "$1" = "choose" ]; then
       index=$2
       count=$(cat "$COUNT_FILE")
-      [ "$index" -ge 1 ] 2>/dev/null && [ "$index" -le "$((count + 1))" ] || exit 1
+      [ "$index" -ge 1 ] 2>/dev/null && [ "$index" -le "$((count + 2))" ] || exit 1
       printf '%s\n' "$index" > "$INDEX_FILE"
     else
       index=$(cat "$INDEX_FILE")
     fi
     config=$(cat "$CONFIG_FILE")
+    if [ "$index" -eq "$((count + 2))" ]; then
+      close
+      skhd -k escape
+      exit 0
+    fi
     if [ "$index" -eq "$((count + 1))" ]; then
       close
       while IFS="$(printf '\t')" read -r label action; do
@@ -126,6 +134,10 @@ case "$1" in
     close
     /bin/sh -c "$action"
     skhd -k "escape"
+    ;;
+  esc)
+    close
+    skhd -k escape
     ;;
   close)
     close

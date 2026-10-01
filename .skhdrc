@@ -64,6 +64,7 @@ selector < 7 : ~/Documents/Codes/Configuration/yabai/plugins/selector.sh number 
 selector < 8 : ~/Documents/Codes/Configuration/yabai/plugins/selector.sh number 8
 selector < 9 : ~/Documents/Codes/Configuration/yabai/plugins/selector.sh number 9
 selector < a : ~/Documents/Codes/Configuration/yabai/plugins/selector.sh all
+selector < e : ~/Documents/Codes/Configuration/yabai/plugins/selector.sh esc
 selector < return : ~/Documents/Codes/Configuration/yabai/plugins/selector.sh select
 selector < escape ; default
 
