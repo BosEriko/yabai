@@ -110,6 +110,12 @@ print("%.0f%%" % ((100.0 - used) - trem))
 print(round(100.0 - used))
 print(datetime.fromtimestamp(reset).strftime("%a %b %d, %H:%M"))
 print(age)
+
+COLORS = ["0xFF22C55E", "0xFF65A30D", "0xFFA3A30A", "0xFFEAB308",
+          "0xFFF59E0B", "0xFFF97316", "0xFFEF4444"]
+frac = max(0.0, min(1.0, (reset - now) / (7 * 86400)))
+idx = min(6, int((1.0 - frac) * 7))
+print(COLORS[idx])
 EOF
 )
 
@@ -117,7 +123,9 @@ LABEL=$(printf '%s\n' "$OUT" | sed -n '1p')
 REMAIN=$(printf '%s\n' "$OUT" | sed -n '2p')
 RESET_HUMAN=$(printf '%s\n' "$OUT" | sed -n '3p')
 AGE=$(printf '%s\n' "$OUT" | sed -n '4p')
+ICON_COLOR=$(printf '%s\n' "$OUT" | sed -n '5p')
 [ -z "$AGE" ] && AGE=999999999
+[ -z "$ICON_COLOR" ] && ICON_COLOR=0xFFBCBCBC
 
 STALE=4320
 LOCK="${TMPDIR:-/tmp}/sketchybar_codex_refresh"
@@ -152,6 +160,6 @@ else
   else
     BORDER=0xFFBCBCBC
   fi
-  sketchybar --set "$NAME" drawing=on label="${LABEL}" background.border_color="$BORDER" \
+  sketchybar --set "$NAME" drawing=on label="${LABEL}" icon.color="$ICON_COLOR" background.border_color="$BORDER" \
     --set "${NAME}.details" label="Codex has ${REMAIN}% tokens remaining before the weekly reset on ${RESET_HUMAN}"
 fi
