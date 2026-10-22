@@ -5,6 +5,10 @@ GREEN=0xFF34A853
 RED=0xFFCE3A5B
 
 BATT="$(pmset -g batt)"
+if ! printf '%s\n' "$BATT" | grep -q 'InternalBattery'; then
+  exit 0
+fi
+
 PERCENTAGE="$(printf '%s\n' "$BATT" | grep -Eo "[0-9]+%" | head -1 | cut -d% -f1)"
 
 if [ -z "$PERCENTAGE" ] || ! printf '%s\n' "$BATT" | grep -q "discharging"; then
@@ -15,6 +19,10 @@ if [ -z "$PERCENTAGE" ] || ! printf '%s\n' "$BATT" | grep -q "discharging"; then
   fi
   sketchybar --set "$NAME" drawing=off --set cpu drawing=on background.border_color="$CPU_BORDER"
   exit 0
+fi
+
+if [ "$PERCENTAGE" -lt 10 ] && printf '%s\n' "$BATT" | grep -q "^Now drawing from 'Battery Power'$"; then
+  pmset sleepnow
 fi
 
 sketchybar --set cpu background.border_color=$WHITE

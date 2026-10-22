@@ -55,6 +55,8 @@ skhd --start-service
 brew services start sketchybar
 ```
 
+While SketchyBar is running, the battery plugin checks every 10 seconds and automatically sleeps the Mac when the battery is below 10%, discharging, and using Battery Power. Systems without an internal battery, such as a Mac mini, are skipped. Connecting AC power prevents automatic sleep. Waking without connecting power will cause it to sleep again on the next check. Sleep reduces battery drain but does not eliminate it.
+
 ## Start JankyBorders
 ```sh
 brew services start borders
