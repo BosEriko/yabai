@@ -11,10 +11,9 @@ seconds_since() {
   osascript -l JavaScript -e "ObjC.import('CoreGraphics'); Math.min(...[$1].map(t => \$.CGEventSourceSecondsSinceLastEventType(1, t)))" 2>/dev/null
 }
 
-resolution=$(system_profiler SPDisplaysDataType -json 2>/dev/null | jq -r '[.SPDisplaysDataType[].spdisplays_ndrvs[]? | select(.spdisplays_main == "spdisplays_yes")._spdisplays_resolution][0]')
-dims=(${(s: :)resolution})
-cx=$((dims[1] / 2))
-cy=$((dims[3] / 2))
+dims=($(osascript -l JavaScript -e 'ObjC.import("AppKit"); var f = $.NSScreen.screens.objectAtIndex(0).frame; f.size.width + " " + f.size.height'))
+cx=$((int(dims[1]) - 100))
+cy=$((int(dims[2]) - 100))
 radius=40
 points=240
 two_pi=6.283185307
