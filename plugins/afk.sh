@@ -4,6 +4,7 @@ export PATH="/opt/homebrew/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
 
 YELLOW=0xFFFFDF20
 WHITE=0xFFBCBCBC
+RED=0xFFCE3A5B
 
 STATE_DIR="$HOME/.cache/sketchybar-afk-${USER}"
 ENABLED_FILE="$STATE_DIR/enabled"
@@ -46,7 +47,10 @@ if [ -f "$ENABLED_FILE" ] && ! command -v cliclick >/dev/null 2>&1; then
   rmdir "$STATE_DIR/installing"
 fi
 
-if [ -f "$ENABLED_FILE" ]; then
+TRUSTED=$(osascript -l JavaScript -e 'ObjC.import("ApplicationServices"); $.AXIsProcessTrusted()' 2>/dev/null)
+DETAILS="AFK avoider: moves the mouse in a circle after 60s without mouse input, stops when you use the mouse"
+
+if [ -f "$ENABLED_FILE" ] && [ "$TRUSTED" = "true" ]; then
   if [ "$running" -eq 0 ]; then
     nohup "$SCRIPT_DIR/../scripts/afk.zsh" >/dev/null 2>&1 &
     printf '%s\n' "$!" > "$PID_FILE"
@@ -59,8 +63,15 @@ else
     kill "$pid"
   fi
   rm -f "$PID_FILE"
-  COLOR=$WHITE
-  LABEL="Off"
+  if [ -f "$ENABLED_FILE" ]; then
+    COLOR=$RED
+    LABEL="No access"
+    DETAILS="No access: Check the README of the yabai repo to grant SketchyBar Accessibility permission"
+  else
+    COLOR=$WHITE
+    LABEL="Off"
+  fi
 fi
 
-sketchybar --set "$NAME" label="$LABEL" icon.color="$COLOR" background.border_color="$COLOR"
+sketchybar --set "$NAME" label="$LABEL" icon.color="$COLOR" background.border_color="$COLOR" \
+  --set "$NAME.details" label="$DETAILS"

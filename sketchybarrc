@@ -162,7 +162,7 @@ sketchybar --add item afk right \
   --subscribe afk mouse.clicked mouse.entered mouse.exited mouse.exited.global \
   --add item afk.details popup.afk \
   --set afk.details \
-    label="AFK avoider: moves the mouse in a circle after 60s without mouse input, stops when you use the mouse" \
+    label="—" \
     label.font="Hack Nerd Font:Regular:11.0" \
     label.color=0xFFCFCFCF \
     icon.drawing=off \
