@@ -57,6 +57,8 @@ brew services start sketchybar
 
 While SketchyBar is running, the battery plugin checks every 10 seconds and automatically sleeps the Mac when the battery is below 10%, discharging, and using Battery Power. Systems without an internal battery, such as a Mac mini, are skipped. Connecting AC power prevents automatic sleep. Waking without connecting power will cause it to sleep again on the next check. Sleep reduces battery drain but does not eliminate it.
 
+The mouse button to the left of the clock toggles the AFK avoider. While it is on (yellow), the mouse starts moving in a small circle after 60 seconds without mouse input and stops as soon as the mouse is moved, clicked or scrolled. Keyboard input is ignored. The toggle state is remembered across restarts, and `cliclick` is installed with Brew the first time it is turned on. SketchyBar needs Accessibility permission to move the mouse: System Settings → Privacy & Security → Accessibility.
+
 ## Start JankyBorders
 ```sh
 brew services start borders
